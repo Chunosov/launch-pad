@@ -1,0 +1,144 @@
+object WndMain: TWndMain
+  Left = 816
+  Height = 478
+  Top = 460
+  Width = 382
+  Caption = 'Launch Pad'
+  ClientHeight = 478
+  ClientWidth = 382
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PopupMenu = PopupMenuCategories
+  LCLVersion = '1.6.2.0'
+  object CategoryTabs: TOriTabSet
+    Left = 0
+    Height = 37
+    Top = 0
+    Width = 382
+    Tabs = <>
+    ColorTabsBorder = clBtnShadow
+    ColorActiveTab = clForm
+    ColorHoverTab = clForm
+    Options = [tsoUseButtons, tsoUseMargins, tsoOwnControls]
+    TabMarginV = 4
+    TabMarginH = 6
+    Align = alTop
+    AutoSize = True
+    Color = clForm
+    PopupMenu = PopupMenuCategories
+  end
+  object PopupMenuLauncher: TPopupMenu
+    left = 80
+    top = 304
+    object MenuItem10: TMenuItem
+      Action = ActionLauncherRun
+      Default = True
+    end
+    object MenuItem9: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem6: TMenuItem
+      Caption = 'Edit'
+      object MenuItem14: TMenuItem
+        Action = ActionLauncherConfig
+      end
+      object MenuItem15: TMenuItem
+        Action = ActionLauncherIcon
+      end
+    end
+    object MenuItem7: TMenuItem
+      Action = ActionLauncherDelete
+    end
+    object MenuItem11: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem12: TMenuItem
+      Action = ActionLauncherMoveUp
+    end
+    object MenuItem13: TMenuItem
+      Action = ActionLauncherMoveDown
+    end
+    object MenuItem8: TMenuItem
+      Caption = '-'
+    end
+    object MenuAddLauncher1: TMenuItem
+      Caption = 'Add New Launcher'
+    end
+  end
+  object ActionList1: TActionList
+    left = 80
+    top = 168
+    object ActionCategoryAdd: TAction
+      Caption = 'Add Category...'
+      OnExecute = ActionCategoryAddExecute
+    end
+    object ActionCategoryProps: TAction
+      Caption = 'Category Properties...'
+      OnExecute = ActionCategoryPropsExecute
+    end
+    object ActionCategoryDelete: TAction
+      Caption = 'Delete Category'
+      OnExecute = ActionCategoryDeleteExecute
+    end
+    object ActionAppSettings: TAction
+      Caption = 'Application Settings...'
+    end
+    object ActionLauncherConfig: TAction
+      Caption = 'Action...'
+      OnExecute = ActionLauncherConfigExecute
+    end
+    object ActionLauncherDelete: TAction
+      Caption = 'Delete'
+      OnExecute = ActionLauncherDeleteExecute
+    end
+    object ActionLauncherRun: TAction
+      Caption = 'Run'
+      OnExecute = ActionLauncherRunExecute
+    end
+    object ActionLauncherMoveUp: TAction
+      Caption = 'Move Up'
+      OnExecute = ActionLauncherMoveUpExecute
+    end
+    object ActionLauncherMoveDown: TAction
+      Caption = 'Move Down'
+      OnExecute = ActionLauncherMoveDownExecute
+    end
+    object ActionLauncherIcon: TAction
+      Caption = 'Icon...'
+      OnExecute = ActionLauncherIconExecute
+    end
+    object ActionCategoryVisibility: TAction
+      Caption = 'Categories Visibility...'
+      OnExecute = ActionCategoryVisibilityExecute
+    end
+  end
+  object PopupMenuCategories: TPopupMenu
+    left = 80
+    top = 240
+    object MenuItem1: TMenuItem
+      Action = ActionCategoryAdd
+    end
+    object MenuItem2: TMenuItem
+      Action = ActionCategoryProps
+    end
+    object MenuItem16: TMenuItem
+      Action = ActionCategoryVisibility
+    end
+    object MenuItem3: TMenuItem
+      Action = ActionCategoryDelete
+    end
+    object MenuItem4: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem5: TMenuItem
+      Action = ActionAppSettings
+    end
+  end
+  object PopupMenuLaunchers: TPopupMenu
+    left = 80
+    top = 368
+    object MenuAddLauncher2: TMenuItem
+      Caption = 'Add New Launcher'
+    end
+  end
+end

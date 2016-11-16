@@ -1,0 +1,244 @@
+object WndLauncherExeProps: TWndLauncherExeProps
+  Left = 694
+  Height = 350
+  Top = 379
+  Width = 500
+  HorzScrollBar.Page = 527
+  HorzScrollBar.Range = 245
+  VertScrollBar.Page = 284
+  VertScrollBar.Range = 236
+  BorderIcons = [biSystemMenu]
+  Caption = 'Executable File Launcher Properties'
+  ClientHeight = 350
+  ClientWidth = 500
+  Constraints.MinHeight = 350
+  Constraints.MinWidth = 500
+  PopupMode = pmAuto
+  Position = poScreenCenter
+  LCLVersion = '1.6.2.0'
+  object ButtonPanel: TButtonPanel
+    Left = 6
+    Height = 26
+    Top = 318
+    Width = 488
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 12
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    BorderSpacing.Around = 0
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 5
+    ShowButtons = [pbOK, pbCancel]
+    ShowBevel = False
+  end
+  object MemoCmdLine: TMemo
+    Left = 6
+    Height = 60
+    Top = 187
+    Width = 488
+    Align = alClient
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    Font.CharSet = RUSSIAN_CHARSET
+    Font.Height = -13
+    Font.Name = 'Monospace'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Lines.Strings = (
+      ''
+    )
+    ParentFont = False
+    ScrollBars = ssAutoVertical
+    TabOrder = 3
+    WantReturns = False
+  end
+  object Label4: TLabel
+    Left = 6
+    Height = 15
+    Top = 59
+    Width = 488
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 12
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 3
+    Caption = 'File name'
+    ParentColor = False
+  end
+  object PanelFileName: TPanel
+    Left = 6
+    Height = 25
+    Top = 77
+    Width = 488
+    Align = alTop
+    AutoSize = True
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    BevelOuter = bvNone
+    ClientHeight = 25
+    ClientWidth = 488
+    TabOrder = 1
+    object TextFileName: TEdit
+      Left = 0
+      Height = 25
+      Top = 0
+      Width = 450
+      Align = alClient
+      BorderSpacing.Right = 3
+      TabOrder = 0
+    end
+    object ButtonFileName: TButton
+      Left = 453
+      Height = 25
+      Hint = 'Select a file'
+      Top = 0
+      Width = 35
+      Align = alRight
+      AutoSize = True
+      Caption = '...'
+      OnClick = ButtonFileNameClick
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+    end
+  end
+  object Label5: TLabel
+    Left = 6
+    Height = 15
+    Top = 169
+    Width = 488
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 12
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 3
+    Caption = 'Command line'
+    ParentColor = False
+  end
+  object Label6: TLabel
+    Left = 6
+    Height = 15
+    Top = 114
+    Width = 488
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 12
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 3
+    Caption = 'Current directory'
+    ParentColor = False
+  end
+  object PanelCurDir: TPanel
+    Left = 6
+    Height = 25
+    Top = 132
+    Width = 488
+    Align = alTop
+    AutoSize = True
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    BevelOuter = bvNone
+    ClientHeight = 25
+    ClientWidth = 488
+    TabOrder = 2
+    object TextCurDir: TEdit
+      Left = 0
+      Height = 25
+      Top = 0
+      Width = 450
+      Align = alClient
+      BorderSpacing.Right = 3
+      TabOrder = 0
+    end
+    object ButtonCurDir: TButton
+      Left = 453
+      Height = 25
+      Hint = 'Select a file'
+      Top = 0
+      Width = 35
+      Align = alRight
+      AutoSize = True
+      Caption = '...'
+      OnClick = ButtonCurDirClick
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+    end
+  end
+  object OptionsGroup: TCheckGroup
+    Left = 6
+    Height = 53
+    Top = 253
+    Width = 488
+    Align = alBottom
+    AutoFill = True
+    BorderSpacing.Around = 6
+    Caption = 'Options'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 33
+    ClientWidth = 484
+    Items.Strings = (
+      'Do not show stderr'
+    )
+    TabOrder = 4
+    Data = {
+      0100000002
+    }
+  end
+  object Label3: TLabel
+    Left = 6
+    Height = 15
+    Top = 6
+    Width = 488
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 6
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 3
+    Caption = 'Title'
+    ParentColor = False
+  end
+  object TextTitle: TEdit
+    Left = 6
+    Height = 23
+    Top = 24
+    Width = 488
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    TabOrder = 0
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    left = 248
+    top = 80
+  end
+  object OpenDialog1: TOpenDialog
+    Title = 'Select Executable File'
+    Filter = 'All files (*.*)|*.*|Executable files (*.exe)|*.exe'
+    Options = [ofNoChangeDir, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofDontAddToRecent, ofViewDetail]
+    left = 248
+    top = 16
+  end
+end
