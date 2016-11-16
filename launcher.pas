@@ -8,60 +8,63 @@ uses
   SysUtils, FGL, OriXmlFile;
 
 type
-  TLauncher = class abstract
+  TLauncher = class
+    abstract
   protected
-    FTitle: String;
-    FHidden: Boolean;
+    FTitle: string;
+    FHidden: boolean;
     procedure SaveXmlInternal(Xml: TOriXmlFileWriter); virtual; abstract;
     procedure LoadXmlInternal(Xml: TOriXmlFileReader); virtual; abstract;
   public
     constructor Create; virtual;
     procedure Launch; virtual; abstract;
-    function Configure: Boolean; virtual; abstract;
+    function Configure: boolean; virtual; abstract;
     procedure SaveXml(Xml: TOriXmlFileWriter);
     procedure LoadXml(Xml: TOriXmlFileReader);
-    property Title: String read FTitle write FTitle;
-    property Hidden: Boolean read FHidden write FHidden;
-    class function TypeTitle: String; virtual; abstract;
+    property Title: string read FTitle write FTitle;
+    property Hidden: boolean read FHidden write FHidden;
+    class function TypeTitle: string; virtual; abstract;
   end;
+
   TLauncherType = class of TLauncher;
   TLauncherTypeList = specialize TFPGList<TLauncherType>;
   TLauncherList = specialize TFPGList<TLauncher>;
 
   TLauncherCategory = class
   private
-    FTitle: String;
-    FHidden: Boolean;
+    FTitle: string;
+    FHidden: boolean;
     FLaunchers: TLauncherList;
     procedure SaveXml(Xml: TOriXmlFileWriter);
     procedure LoadXml(Xml: TOriXmlFileReader);
   public
     constructor Create;
     destructor Destroy; override;
-    property Title: String read FTitle write FTitle;
-    property Hidden: Boolean read FHidden write FHidden;
+    property Title: string read FTitle write FTitle;
+    property Hidden: boolean read FHidden write FHidden;
     property Launchers: TLauncherList read FLaunchers;
   end;
+
   TLauncherCategoryList = specialize TFPGList<TLauncherCategory>;
 
   TLaunchersBank = class
   private
-    FFileName: String;
+    FFileName: string;
     FCategories: TLauncherCategoryList;
     procedure LoadXml;
     procedure SaveXml;
-    procedure Load(AFileName: String);
+    procedure Load(AFileName: string);
   public
-    constructor Create(AFileName: String);
+    constructor Create(AFileName: string);
     destructor Destroy; override;
     procedure Save;
-    property FileName: String read FFileName;
+    property FileName: string read FFileName;
     property Categories: TLauncherCategoryList read FCategories;
   end;
 
   ELauncher = class(Exception);
 
-function GetLauncherTypeByName(const AName: String): TLauncherType;
+function GetLauncherTypeByName(const AName: string): TLauncherType;
 
 var
   LauncherTypes: TLauncherTypeList;
@@ -85,17 +88,17 @@ const
 implementation
 
 uses
-  FileUtil, OriUtils;
+  LazFileUtils, OriUtils;
 
 resourcestring
   LoadErr_UnsupportedFileVersion = 'Unsupported verion of configuration file';
 
 {%region Helpers}
-function GetLauncherTypeByName(const AName: String): TLauncherType;
+function GetLauncherTypeByName(const AName: string): TLauncherType;
 var
-  I: Integer;
+  I: integer;
 begin
-  for I := 0 to LauncherTypes.Count-1 do
+  for I := 0 to LauncherTypes.Count - 1 do
   begin
     if SameText(LauncherTypes[I].ClassName, AName) then
     begin
@@ -105,6 +108,7 @@ begin
   end;
   Result := nil;
 end;
+
 {%endregion}
 
 {%region TLauncher}
@@ -115,11 +119,11 @@ end;
 procedure TLauncher.SaveXml(Xml: TOriXmlFileWriter);
 begin
   Xml.Open(TagLauncher);
-    Xml.Attribute[AttrLauncherTitle] := FTitle;
-    Xml.Attribute[AttrLauncherType] := ClassName;
-    if FHidden then
-      Xml.BoolAttribute[AttrLauncherHidden] := FHidden;
-    SaveXMLInternal(Xml);
+  Xml.Attribute[AttrLauncherTitle] := FTitle;
+  Xml.Attribute[AttrLauncherType] := ClassName;
+  if FHidden then
+    Xml.BoolAttribute[AttrLauncherHidden] := FHidden;
+  SaveXMLInternal(Xml);
   Xml.Close;
 end;
 
@@ -129,6 +133,7 @@ begin
   FHidden := Xml.BoolAttribute[AttrLauncherHidden];
   LoadXmlInternal(Xml);
 end;
+
 {%endregion}
 
 {%region TLauncherCategory}
@@ -143,15 +148,17 @@ begin
 end;
 
 procedure TLauncherCategory.SaveXml(Xml: TOriXmlFileWriter);
-var L: TLauncher;
+var
+  L: TLauncher;
 begin
   Xml.Open(TagCategory);
-    Xml.Attribute[AttrCategoryTitle] := FTitle;
-    if FHidden then
-      Xml.BoolAttribute[AttrCategoryHidden] := FHidden;
-    Xml.Open(TagLaunchers);
-      for L in FLaunchers do L.SaveXml(Xml);
-    Xml.Close;
+  Xml.Attribute[AttrCategoryTitle] := FTitle;
+  if FHidden then
+    Xml.BoolAttribute[AttrCategoryHidden] := FHidden;
+  Xml.Open(TagLaunchers);
+  for L in FLaunchers do
+    L.SaveXml(Xml);
+  Xml.Close;
   Xml.Close;
 end;
 
@@ -159,7 +166,7 @@ procedure TLauncherCategory.LoadXml(Xml: TOriXmlFileReader);
 
   procedure LoadLauncher;
   var
-    LauncherTypeName: String;
+    LauncherTypeName: string;
     LauncherType: TLauncherType;
     Launcher: TLauncher;
   begin
@@ -178,13 +185,15 @@ begin
   FHidden := Xml.BoolAttribute[AttrCategoryHidden];
 
   Xml.Open(TagLaunchers);
-    while Xml.List(TagLauncher) do LoadLauncher;
+  while Xml.List(TagLauncher) do
+    LoadLauncher;
   Xml.Close;
 end;
+
 {%endregion}
 
 {%region TLaunchersBank}
-constructor TLaunchersBank.Create(AFileName: String);
+constructor TLaunchersBank.Create(AFileName: string);
 begin
   FCategories := TLauncherCategoryList.Create;
 
@@ -196,11 +205,12 @@ begin
   FreeAndClearList(FCategories);
 end;
 
-procedure TLaunchersBank.Load(AFileName: String);
-var C: TLauncherCategory;
+procedure TLaunchersBank.Load(AFileName: string);
+var
+  C: TLauncherCategory;
 begin
   FFileName := AFileName;
-  if FileExistsUTF8(AFileName) then
+  if FileExists(AFileName) then
     LoadXml;
 
   if FCategories.Count = 0 then
@@ -221,7 +231,8 @@ var
   Xml: TOriXmlFileReader;
 
   procedure LoadCategory;
-  var C: TLauncherCategory;
+  var
+    C: TLauncherCategory;
   begin
     C := TLauncherCategory.Create;
     C.LoadXml(Xml);
@@ -232,11 +243,12 @@ begin
   Xml := TOriXmlFileReader.Create(FFileName);
   try
     Xml.Open(TagBank);
-      if Xml.Attribute[AttrBankVersion] <> BankVersion then
-        raise Exception.Create(LoadErr_UnsupportedFileVersion);
-      Xml.Open(TagCategories);
-        while Xml.List(TagCategory) do LoadCategory;
-      Xml.Close;
+    if Xml.Attribute[AttrBankVersion] <> BankVersion then
+      raise Exception.Create(LoadErr_UnsupportedFileVersion);
+    Xml.Open(TagCategories);
+    while Xml.List(TagCategory) do
+      LoadCategory;
+    Xml.Close;
     Xml.Close;
   finally
     Xml.Free;
@@ -251,15 +263,17 @@ begin
   Xml := TOriXmlFileWriter.Create(FFileName);
   try
     Xml.Open(TagBank);
-      Xml.Attribute[AttrBankVersion] := BankVersion;
-      Xml.Open(TagCategories);
-        for C in FCategories do C.SaveXml(Xml);
-      Xml.Close;
+    Xml.Attribute[AttrBankVersion] := BankVersion;
+    Xml.Open(TagCategories);
+    for C in FCategories do
+      C.SaveXml(Xml);
+    Xml.Close;
     Xml.Close;
   finally
     Xml.Free;
   end;
 end;
+
 {%endregion}
 
 initialization
@@ -269,4 +283,3 @@ finalization
   LauncherTypes.Free;
 
 end.
-

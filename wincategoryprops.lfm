@@ -11,11 +11,11 @@ object WndCategoryProps: TWndCategoryProps
   Constraints.MinWidth = 350
   PopupMode = pmAuto
   Position = poScreenCenter
-  LCLVersion = '1.4.4.0'
+  LCLVersion = '1.6.2.0'
   object ButtonPanel: TButtonPanel
     Left = 6
-    Height = 34
-    Top = 360
+    Height = 26
+    Top = 368
     Width = 338
     BorderSpacing.Left = 6
     BorderSpacing.Top = 12
@@ -36,7 +36,7 @@ object WndCategoryProps: TWndCategoryProps
   end
   object Label1: TLabel
     Left = 6
-    Height = 17
+    Height = 15
     Top = 6
     Width = 338
     Align = alTop
@@ -49,8 +49,8 @@ object WndCategoryProps: TWndCategoryProps
   end
   object TextTitle: TEdit
     Left = 6
-    Height = 27
-    Top = 26
+    Height = 23
+    Top = 24
     Width = 338
     Align = alTop
     BorderSpacing.Left = 6
@@ -61,8 +61,8 @@ object WndCategoryProps: TWndCategoryProps
   end
   object ListItems: TCheckListBox
     Left = 6
-    Height = 263
-    Top = 85
+    Height = 279
+    Top = 77
     Width = 338
     Align = alClient
     BorderSpacing.Left = 6
@@ -74,8 +74,8 @@ object WndCategoryProps: TWndCategoryProps
   end
   object Label2: TLabel
     Left = 6
-    Height = 17
-    Top = 65
+    Height = 15
+    Top = 59
     Width = 338
     Align = alTop
     BorderSpacing.Left = 6

@@ -9,11 +9,11 @@ object WndCategoryVisibility: TWndCategoryVisibility
   ClientWidth = 294
   PopupMode = pmAuto
   Position = poScreenCenter
-  LCLVersion = '1.4.4.0'
+  LCLVersion = '1.6.2.0'
   object ButtonPanel: TButtonPanel
     Left = 6
-    Height = 34
-    Top = 356
+    Height = 26
+    Top = 364
     Width = 282
     BorderSpacing.Left = 6
     BorderSpacing.Top = 12
@@ -34,7 +34,7 @@ object WndCategoryVisibility: TWndCategoryVisibility
   end
   object ListCategories: TCheckListBox
     Left = 6
-    Height = 338
+    Height = 346
     Top = 6
     Width = 282
     Align = alClient

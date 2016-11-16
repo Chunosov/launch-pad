@@ -12,22 +12,22 @@ uses
 type
   TWndLauncherExeProps = class(TOriDialog)
     ButtonFileName: TButton;
-		ButtonCurDir: TButton;
+    ButtonCurDir: TButton;
     ButtonPanel: TButtonPanel;
-		Label3: TLabel;
-		OptionsGroup: TCheckGroup;
-		Label6: TLabel;
-		OpenDialog1: TOpenDialog;
-		PanelCurDir: TPanel;
-		SelectDirectoryDialog1: TSelectDirectoryDialog;
+    Label3: TLabel;
+    OptionsGroup: TCheckGroup;
+    Label6: TLabel;
+    OpenDialog1: TOpenDialog;
+    PanelCurDir: TPanel;
+    SelectDirectoryDialog1: TSelectDirectoryDialog;
     TextFileName: TEdit;
     Label4: TLabel;
     Label5: TLabel;
     MemoCmdLine: TMemo;
     PanelFileName: TPanel;
-		TextCurDir: TEdit;
-		TextTitle: TEdit;
-		procedure ButtonCurDirClick(Sender: TObject);
+    TextCurDir: TEdit;
+    TextTitle: TEdit;
+    procedure ButtonCurDirClick(Sender: TObject);
     procedure ButtonFileNameClick(Sender: TObject);
   private
     FLauncher: TLauncherExe;
@@ -48,6 +48,7 @@ resourcestring
   SOpenDialogFilter = 'All files (*.*)|*.*|Executable files (*.exe)|*.exe';
 {$else}
   SOpenDialogFilter = 'All files (*.*)';
+
 {$endif}
 
 {$R *.lfm}
@@ -78,7 +79,7 @@ end;
 
 procedure TWndLauncherExeProps.ButtonFileNameClick(Sender: TObject);
 var
-  FileName, Dir: String;
+  FileName, Dir: string;
 begin
   FileName := Trim(TextFileName.Text);
   Dir := ExtractFilePath(FileName);
@@ -93,7 +94,7 @@ end;
 
 procedure TWndLauncherExeProps.ButtonCurDirClick(Sender: TObject);
 var
-  Dir: String;
+  Dir: string;
 begin
   Dir := Trim(TextCurDir.Text);
   if (Dir = '') or not DirectoryExistsUTF8(Dir) then
@@ -104,4 +105,3 @@ begin
 end;
 
 end.
-

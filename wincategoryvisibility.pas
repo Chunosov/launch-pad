@@ -34,23 +34,23 @@ end;
 
 procedure TWndCategoryVisibility.Populate;
 var
-  I: Integer;
+  I: integer;
   C: TLauncherCategory;
 begin
-  for I := 0 to FBank.Categories.Count-1 do
+  for I := 0 to FBank.Categories.Count - 1 do
   begin
     C := FBank.Categories[I];
     ListCategories.AddItem(C.Title, C);
     ListCategories.Checked[I] := not C.Hidden;
-	end;
+  end;
 end;
 
 procedure TWndCategoryVisibility.Collect;
 var
-  I: Integer;
+  I: integer;
   C: TLauncherCategory;
 begin
-  for I := 0 to ListCategories.Count-1 do
+  for I := 0 to ListCategories.Count - 1 do
   begin
     C := TLauncherCategory(ListCategories.Items.Objects[I]);
     C.Hidden := not ListCategories.Checked[I];

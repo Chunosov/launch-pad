@@ -17,7 +17,7 @@ type
     procedure Click; override;
     procedure Populate;
     property Launcher: TLauncher read FLauncher;
-	end;
+  end;
 
   TCategoryItems = specialize TFPGList<TLauncherView>;
 
@@ -84,6 +84,7 @@ begin
   Caption := FLauncher.Title;
   CommonDat.ImagesBig.GetBitmap(1, Glyph);
 end;
+
 {%endregion}
 
 {%region TCategoryView}
@@ -105,18 +106,21 @@ begin
 end;
 
 procedure TCategoryView.Clear;
-var I: Integer;
+var
+  I: integer;
 begin
-  for I := FItems.Count-1 downto 0 do
+  for I := FItems.Count - 1 downto 0 do
     FItems[I].Free;
   FItems.Clear;
 end;
 
 procedure TCategoryView.Populate;
-var L: TLauncher;
+var
+  L: TLauncher;
 begin
   for L in FCategory.Launchers do
-    if not L.Hidden then AddItem(L);
+    if not L.Hidden then
+      AddItem(L);
 end;
 
 procedure TCategoryView.AddItem(ALauncher: TLauncher);
@@ -135,7 +139,8 @@ var
   Item: TLauncherView;
 begin
   Item := GetItem(ALauncher);
-  if Assigned(Item) then Item.Populate;
+  if Assigned(Item) then
+    Item.Populate;
 end;
 
 procedure TCategoryView.DeleteItem(ALauncher: TLauncher);
@@ -144,16 +149,17 @@ var
 begin
   Item := GetItem(ALauncher);
   if Assigned(Item) then
-	begin
+  begin
     FItems.Remove(Item);
     Item.Free;
-	end;
+  end;
 end;
 
 function TCategoryView.GetItem(ALauncher: TLauncher): TLauncherView;
 begin
   for Result in FItems do
-    if Result.Launcher = ALauncher then Exit;
+    if Result.Launcher = ALauncher then
+      Exit;
   Result := nil;
 end;
 
@@ -162,15 +168,16 @@ var
   Item: TLauncherView;
 begin
   FItemMenu := Menu;
-  for Item in FItems do Item.PopupMenu := Menu;
+  for Item in FItems do
+    Item.PopupMenu := Menu;
 end;
 
 procedure TCategoryView.MoveItemUp(ALauncher: TLauncher);
 var
-  I: Integer;
+  I: integer;
   Item: TLauncherView;
 begin
-  for I := 0 to FItems.Count-1 do
+  for I := 0 to FItems.Count - 1 do
     if Fitems[I].Launcher = ALauncher then
     begin
       Item := FItems[I];
@@ -183,8 +190,8 @@ begin
       end
       else
       begin
-        FItems.Insert(I-1, Item);
-        FCategory.Launchers.Insert(I-1, ALauncher);
+        FItems.Insert(I - 1, Item);
+        FCategory.Launchers.Insert(I - 1, ALauncher);
       end;
       Arrange;
       Break;
@@ -193,10 +200,10 @@ end;
 
 procedure TCategoryView.MoveItemDown(ALauncher: TLauncher);
 var
-  I: Integer;
+  I: integer;
   Item: TLauncherView;
 begin
-  for I := 0 to FItems.Count-1 do
+  for I := 0 to FItems.Count - 1 do
     if Fitems[I].Launcher = ALauncher then
     begin
       Item := FItems[I];
@@ -209,8 +216,8 @@ begin
       end
       else
       begin
-        FItems.Insert(I+1, Item);
-        FCategory.Launchers.Insert(I+1, ALauncher);
+        FItems.Insert(I + 1, Item);
+        FCategory.Launchers.Insert(I + 1, ALauncher);
       end;
       Arrange;
       Break;
@@ -220,22 +227,22 @@ end;
 procedure TCategoryView.Arrange;
 var
   Item: TLauncherView;
-  Pos: Integer = 0;
+  Pos: integer = 0;
 begin
   DisableAlign;
   try
-	  for Item in FItems do
-	  begin
-	    Item.Top := Pos+1;
-	    Inc(Pos, Item.Height);
-		end;
-	finally
+    for Item in FItems do
+    begin
+      Item.Top := Pos + 1;
+      Inc(Pos, Item.Height);
+    end;
+  finally
     EnableAlign;
     ReAlign;
-	end;
+  end;
 end;
+
 {%endregion}
 
 
 end.
-

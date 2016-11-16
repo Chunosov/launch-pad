@@ -11,14 +11,14 @@ uses
 
 type
 
-	{ TWndMain }
+  { TWndMain }
 
   TWndMain = class(TForm)
-	  ActionCategoryVisibility: TAction;
-		ActionLauncherIcon: TAction;
-	  ActionLauncherMoveDown: TAction;
-		ActionLauncherMoveUp: TAction;
-		ActionLauncherRun: TAction;
+    ActionCategoryVisibility: TAction;
+    ActionLauncherIcon: TAction;
+    ActionLauncherMoveDown: TAction;
+    ActionLauncherMoveUp: TAction;
+    ActionLauncherRun: TAction;
     ActionLauncherDelete: TAction;
     ActionLauncherConfig: TAction;
     ActionAppSettings: TAction;
@@ -28,13 +28,13 @@ type
     ActionList1: TActionList;
     MenuAddLauncher1: TMenuItem;
     MenuItem1: TMenuItem;
-		MenuItem10: TMenuItem;
-		MenuItem11: TMenuItem;
-		MenuItem12: TMenuItem;
-		MenuItem13: TMenuItem;
-		MenuItem14: TMenuItem;
-		MenuItem15: TMenuItem;
-		MenuItem16: TMenuItem;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -42,29 +42,30 @@ type
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     CategoryTabs: TOriTabSet;
-		MenuAddLauncher2: TMenuItem;
-		MenuItem8: TMenuItem;
-		MenuItem9: TMenuItem;
-		PopupMenuLaunchers: TPopupMenu;
+    MenuAddLauncher2: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
+    PopupMenuLaunchers: TPopupMenu;
     PopupMenuLauncher: TPopupMenu;
     PopupMenuCategories: TPopupMenu;
     procedure ActionCategoryAddExecute(Sender: TObject);
     procedure ActionCategoryDeleteExecute(Sender: TObject);
     procedure ActionCategoryPropsExecute(Sender: TObject);
-		procedure ActionCategoryVisibilityExecute(Sender: TObject);
+    procedure ActionCategoryVisibilityExecute(Sender: TObject);
     procedure ActionLauncherDeleteExecute(Sender: TObject);
-		procedure ActionLauncherIconExecute(Sender: TObject);
-		procedure ActionLauncherMoveDownExecute(Sender: TObject);
+    procedure ActionLauncherIconExecute(Sender: TObject);
+    procedure ActionLauncherMoveDownExecute(Sender: TObject);
     procedure ActionLauncherConfigExecute(Sender: TObject);
-		procedure ActionLauncherRunExecute(Sender: TObject);
-		procedure ActionLauncherMoveUpExecute(Sender: TObject);
+    procedure ActionLauncherRunExecute(Sender: TObject);
+    procedure ActionLauncherMoveUpExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
   private
     FBank: TLaunchersBank;
     procedure PopulateLauncherTypesMenu;
     procedure CreateView; overload;
-    procedure CreateView(ACategory: TLauncherCategory; AActivate: Boolean = False); overload;
+    procedure CreateView(ACategory: TLauncherCategory; AActivate: boolean = False);
+      overload;
     procedure AddNewLauncherMenuItemClicked(Sender: TObject);
     function CurCategory: TLauncherCategory;
     function CurCategoryView: TCategoryView;
@@ -86,11 +87,12 @@ resourcestring
   SConfirmCategoryDeletion = 'Delete category "%s"?';
   SNewCategoryCaption = 'Create Category';
   SEditCategoryPrompt = 'New cateory title:';
-  SRestartForCategoriesVibility = 'Restart application to apply visibility of categories';
+  SRestartForCategoriesVibility =
+    'Restart application to apply visibility of categories';
 
 {$R *.lfm}
 
-function DefaultBankFile: String;
+function DefaultBankFile: string;
 begin
   Result := AppendPathDelim(ExtractFilePath(ParamStr(0))) + DefBankFileName;
 end;
@@ -104,25 +106,26 @@ begin
   CreateView;
 
   with TOriIniFile.Create do
-  try
-    CategoryTabs.ActiveTabIndex := ReadInteger('CurrentTab', 0);
-    if CategoryTabs.ActiveTabIndex < 0 then CategoryTabs.ActiveTabIndex := 0;
+    try
+      CategoryTabs.ActiveTabIndex := ReadInteger('CurrentTab', 0);
+      if CategoryTabs.ActiveTabIndex < 0 then
+        CategoryTabs.ActiveTabIndex := 0;
 
-    ReadFormSizePos(Self);
-  finally
-    Free;
-  end;
+      ReadFormSizePos(Self);
+    finally
+      Free;
+    end;
 end;
 
 procedure TWndMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   with TOriIniFile.Create do
-  try
-    WriteInteger('CurrentTab', CategoryTabs.ActiveTabIndex);
-    WriteFormSizePos(Self);
-  finally
-    Free;
-  end;
+    try
+      WriteInteger('CurrentTab', CategoryTabs.ActiveTabIndex);
+      WriteFormSizePos(Self);
+    finally
+      Free;
+    end;
 
   FBank.Free;
   CloseAction := caFree; // warning suppress
@@ -130,13 +133,15 @@ end;
 
 {%region Category view methods}
 procedure TWndMain.CreateView;
-var C: TLauncherCategory;
+var
+  C: TLauncherCategory;
 begin
   for C in FBank.Categories do
-    if not C.Hidden then CreateView(C);
+    if not C.Hidden then
+      CreateView(C);
 end;
 
-procedure TWndMain.CreateView(ACategory: TLauncherCategory; AActivate: Boolean);
+procedure TWndMain.CreateView(ACategory: TLauncherCategory; AActivate: boolean);
 var
   Tab: TOriTab;
   List: TCategoryView;
@@ -150,7 +155,8 @@ begin
   Tab := CategoryTabs.Tabs.Add;
   Tab.Caption := ACategory.Title;
   Tab.Control := List;
-  if AActivate then CategoryTabs.ActiveTab := Tab;
+  if AActivate then
+    CategoryTabs.ActiveTab := Tab;
 end;
 
 {%endregion}
@@ -158,7 +164,7 @@ end;
 {%region Category Actions}
 procedure TWndMain.ActionCategoryAddExecute(Sender: TObject);
 var
-  Title: String = '';
+  Title: string = '';
   Category: TLauncherCategory;
 begin
   if InputQuery(SNewCategoryCaption, SEditCategoryPrompt, Title) then
@@ -176,7 +182,8 @@ var
   Category: TLauncherCategory;
 begin
   Category := CurCategory;
-  if not Assigned(Category) then exit;
+  if not Assigned(Category) then
+    exit;
   if ConfirmDlg(SConfirmCategoryDeletion, [Category.Title]) then
   begin
     CategoryTabs.Tabs.Delete(CategoryTabs.ActiveTabIndex);
@@ -189,14 +196,15 @@ end;
 
 procedure TWndMain.ActionCategoryPropsExecute(Sender: TObject);
 begin
-  if not Assigned(CurCategory) then exit;
+  if not Assigned(CurCategory) then
+    exit;
   if TWndCategoryProps.Create(CurCategory).Exec then
   begin
     FBank.Save;
     CategoryTabs.ActiveTab.Caption := CurCategory.Title;
     CurCategoryView.Clear;
     CurCategoryView.Populate;
-	end;
+  end;
 end;
 
 procedure TWndMain.ActionCategoryVisibilityExecute(Sender: TObject);
@@ -215,7 +223,8 @@ procedure TWndMain.AddNewLauncherMenuItemClicked(Sender: TObject);
 var
   Launcher: TLauncher;
 begin
-  if not Assigned(CurCategory) then exit;
+  if not Assigned(CurCategory) then
+    exit;
   Launcher := LauncherTypes[TComponent(Sender).Tag].Create;
   if Launcher.Configure then
   begin
@@ -223,7 +232,8 @@ begin
     CurCategoryView.AddItem(Launcher);
     FBank.Save;
   end
-  else Launcher.Free;
+  else
+    Launcher.Free;
 end;
 
 procedure TWndMain.ActionLauncherDeleteExecute(Sender: TObject);
@@ -273,7 +283,7 @@ begin
   begin
     CurCategoryView.MoveItemDown(CurLauncher);
     FBank.Save;
-	end;
+  end;
 end;
 
 procedure TWndMain.ActionLauncherMoveUpExecute(Sender: TObject);
@@ -282,18 +292,20 @@ begin
   begin
     CurCategoryView.MoveItemUp(CurLauncher);
     FBank.Save;
-	end;
+  end;
 end;
 
 procedure TWndMain.ActionLauncherRunExecute(Sender: TObject);
 begin
-  if Assigned(CurLauncher) then LaunchWithErrorHandler(CurLauncher);
+  if Assigned(CurLauncher) then
+    LaunchWithErrorHandler(CurLauncher);
 end;
+
 {%endregion}
 
 procedure TWndMain.PopulateLauncherTypesMenu;
 var
-  Index: Integer;
+  Index: integer;
 
   function MakeMenuItem: TMenuItem;
   begin
@@ -304,7 +316,7 @@ var
   end;
 
 begin
-  for Index := 0 to LauncherTypes.Count-1 do
+  for Index := 0 to LauncherTypes.Count - 1 do
   begin
     MenuAddLauncher1.Add(MakeMenuItem);
     MenuAddLauncher2.Add(MakeMenuItem);
@@ -313,16 +325,18 @@ end;
 
 function TWndMain.CurCategory: TLauncherCategory;
 begin
-  if Assigned(CategoryTabs.ActiveTab)
-    then Result := TCategoryView(CategoryTabs.ActiveTab.Control).Category
-    else Result := nil;
+  if Assigned(CategoryTabs.ActiveTab) then
+    Result := TCategoryView(CategoryTabs.ActiveTab.Control).Category
+  else
+    Result := nil;
 end;
 
 function TWndMain.CurCategoryView: TCategoryView;
 begin
-  if Assigned(CategoryTabs.ActiveTab)
-    then Result := TCategoryView(CategoryTabs.ActiveTab.Control)
-    else Result := nil;
+  if Assigned(CategoryTabs.ActiveTab) then
+    Result := TCategoryView(CategoryTabs.ActiveTab.Control)
+  else
+    Result := nil;
 end;
 
 function TWndMain.CurLauncher: TLauncher;
@@ -330,10 +344,10 @@ var
   LauncherView: TLauncherView;
 begin
   LauncherView := PopupMenuLauncher.PopupComponent as TLauncherView;
-  if Assigned(LauncherView)
-    then Result := LauncherView.Launcher
-    else Result := nil;
+  if Assigned(LauncherView) then
+    Result := LauncherView.Launcher
+  else
+    Result := nil;
 end;
 
 end.
-

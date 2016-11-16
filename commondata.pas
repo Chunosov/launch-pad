@@ -9,7 +9,7 @@ uses
 
 type
   TCommonDat = class(TDataModule)
-		ImagesBig: TImageList;
+    ImagesBig: TImageList;
   end;
 
 var

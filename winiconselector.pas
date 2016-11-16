@@ -13,8 +13,8 @@ type
     ButtonPanel: TButtonPanel;
     CategoryTabs: TOriTabSet;
     ListBuiltinIcons: TListView;
-		procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-  procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormShow(Sender: TObject);
   private
     FLauncher: TLauncher;
   end;
@@ -29,7 +29,8 @@ uses
 
 {$R *.lfm}
 
-var SavedSize, SavedPos: Longword;
+var
+  SavedSize, SavedPos: longword;
 
 function SelectIcon(ALauncher: TLauncher): boolean;
 begin
@@ -47,11 +48,11 @@ end;
 
 procedure TWndIconSelector.FormShow(Sender: TObject);
 var
-  I: Integer;
+  I: integer;
   It: TListItem;
 begin
   ListBuiltinIcons.LargeImages := GetImages;
-  for I := 0 to GetImages.Count-1 do
+  for I := 0 to GetImages.Count - 1 do
   begin
     It := ListBuiltinIcons.Items.Add;
     It.Caption := IfThen(I = 0, '(none)', IntToStr(I));
@@ -68,4 +69,3 @@ begin
 end;
 
 end.
-
