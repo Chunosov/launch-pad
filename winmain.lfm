@@ -69,14 +69,17 @@ object WndMain: TWndMain
     left = 80
     top = 168
     object ActionCategoryAdd: TAction
+      Category = 'Category'
       Caption = 'Add Category...'
       OnExecute = ActionCategoryAddExecute
     end
     object ActionCategoryProps: TAction
+      Category = 'Category'
       Caption = 'Category Properties...'
       OnExecute = ActionCategoryPropsExecute
     end
     object ActionCategoryDelete: TAction
+      Category = 'Category'
       Caption = 'Delete Category'
       OnExecute = ActionCategoryDeleteExecute
     end
@@ -84,48 +87,74 @@ object WndMain: TWndMain
       Caption = 'Application Settings...'
     end
     object ActionLauncherConfig: TAction
+      Category = 'Launcher'
       Caption = 'Action...'
       OnExecute = ActionLauncherConfigExecute
     end
     object ActionLauncherDelete: TAction
+      Category = 'Launcher'
       Caption = 'Delete'
       OnExecute = ActionLauncherDeleteExecute
     end
     object ActionLauncherRun: TAction
+      Category = 'Launcher'
       Caption = 'Run'
       OnExecute = ActionLauncherRunExecute
     end
     object ActionLauncherMoveUp: TAction
+      Category = 'Launcher'
       Caption = 'Move Up'
       OnExecute = ActionLauncherMoveUpExecute
     end
     object ActionLauncherMoveDown: TAction
+      Category = 'Launcher'
       Caption = 'Move Down'
       OnExecute = ActionLauncherMoveDownExecute
     end
     object ActionLauncherIcon: TAction
+      Category = 'Launcher'
       Caption = 'Icon...'
       OnExecute = ActionLauncherIconExecute
     end
     object ActionCategoryVisibility: TAction
+      Category = 'Category'
       Caption = 'Categories Visibility...'
       OnExecute = ActionCategoryVisibilityExecute
+    end
+    object ActionCategoryMoveLeft: TAction
+      Category = 'Category'
+      Caption = 'Move Left'
+      OnExecute = ActionCategoryMoveLeftExecute
+    end
+    object ActionCategoryMoveRight: TAction
+      Category = 'Category'
+      Caption = 'Move Right'
+      OnExecute = ActionCategoryMoveRightExecute
     end
   end
   object PopupMenuCategories: TPopupMenu
     left = 80
     top = 240
-    object MenuItem1: TMenuItem
-      Action = ActionCategoryAdd
-    end
     object MenuItem2: TMenuItem
       Action = ActionCategoryProps
     end
-    object MenuItem16: TMenuItem
-      Action = ActionCategoryVisibility
-    end
     object MenuItem3: TMenuItem
       Action = ActionCategoryDelete
+    end
+    object MenuItem18: TMenuItem
+      Action = ActionCategoryMoveLeft
+    end
+    object MenuItem19: TMenuItem
+      Action = ActionCategoryMoveRight
+    end
+    object MenuItem17: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem1: TMenuItem
+      Action = ActionCategoryAdd
+    end
+    object MenuItem16: TMenuItem
+      Action = ActionCategoryVisibility
     end
     object MenuItem4: TMenuItem
       Caption = '-'

@@ -60,6 +60,10 @@ type
     procedure Save;
     property FileName: string read FFileName;
     property Categories: TLauncherCategoryList read FCategories;
+
+    function IndexOf(ACategory: TLauncherCategory): Integer;
+    function MoveLeft(ACategory: TLauncherCategory): Boolean;
+    function MoveRight(ACategory: TLauncherCategory): Boolean;
   end;
 
   ELauncher = class(Exception);
@@ -271,6 +275,37 @@ begin
     Xml.Close;
   finally
     Xml.Free;
+  end;
+end;
+
+function TLaunchersBank.IndexOf(ACategory: TLauncherCategory): Integer;
+begin
+  Result := FCategories.IndexOf(ACategory);
+end;
+
+function TLaunchersBank.MoveLeft(ACategory: TLauncherCategory): Boolean;
+var Index: Integer;
+begin
+  Result := False;
+  Index := IndexOf(ACategory);
+  if Index > 0 then
+  begin
+    FCategories.Delete(Index);
+    FCategories.Insert(Index-1, ACategory);
+    Result := True;
+  end;
+end;
+
+function TLaunchersBank.MoveRight(ACategory: TLauncherCategory): Boolean;
+var Index: Integer;
+begin
+  Result := False;
+  Index := IndexOf(ACategory);
+  if Index < FCategories.Count-1 then
+  begin
+    FCategories.Delete(Index);
+    FCategories.Insert(Index+1, ACategory);
+    Result := True;
   end;
 end;
 

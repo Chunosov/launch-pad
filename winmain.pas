@@ -14,6 +14,8 @@ type
   { TWndMain }
 
   TWndMain = class(TForm)
+    ActionCategoryMoveRight: TAction;
+    ActionCategoryMoveLeft: TAction;
     ActionCategoryVisibility: TAction;
     ActionLauncherIcon: TAction;
     ActionLauncherMoveDown: TAction;
@@ -35,6 +37,9 @@ type
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
     MenuItem16: TMenuItem;
+    MenuItem17: TMenuItem;
+    MenuItem18: TMenuItem;
+    MenuItem19: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -50,6 +55,8 @@ type
     PopupMenuCategories: TPopupMenu;
     procedure ActionCategoryAddExecute(Sender: TObject);
     procedure ActionCategoryDeleteExecute(Sender: TObject);
+    procedure ActionCategoryMoveLeftExecute(Sender: TObject);
+    procedure ActionCategoryMoveRightExecute(Sender: TObject);
     procedure ActionCategoryPropsExecute(Sender: TObject);
     procedure ActionCategoryVisibilityExecute(Sender: TObject);
     procedure ActionLauncherDeleteExecute(Sender: TObject);
@@ -64,8 +71,7 @@ type
     FBank: TLaunchersBank;
     procedure PopulateLauncherTypesMenu;
     procedure CreateView; overload;
-    procedure CreateView(ACategory: TLauncherCategory; AActivate: boolean = False);
-      overload;
+    procedure CreateView(ACategory: TLauncherCategory; AActivate: boolean = False); overload;
     procedure AddNewLauncherMenuItemClicked(Sender: TObject);
     function CurCategory: TLauncherCategory;
     function CurCategoryView: TCategoryView;
@@ -87,8 +93,7 @@ resourcestring
   SConfirmCategoryDeletion = 'Delete category "%s"?';
   SNewCategoryCaption = 'Create Category';
   SEditCategoryPrompt = 'New cateory title:';
-  SRestartForCategoriesVibility =
-    'Restart application to apply visibility of categories';
+  SRestartForCategoriesVibility = 'Restart application to apply visibility of categories';
 
 {$R *.lfm}
 
@@ -96,6 +101,9 @@ function DefaultBankFile: string;
 begin
   Result := AppendPathDelim(ExtractFilePath(ParamStr(0))) + DefBankFileName;
 end;
+
+{$region Helpers}
+{$endregion}
 
 procedure TWndMain.FormCreate(Sender: TObject);
 begin
@@ -191,6 +199,30 @@ begin
     FBank.Categories.Remove(Category);
     FBank.Save;
     Category.Free;
+  end;
+end;
+
+procedure TWndMain.ActionCategoryMoveLeftExecute(Sender: TObject);
+var
+  Category: TLauncherCategory;
+begin
+  Category := CurCategory;
+  if Assigned(Category) and FBank.MoveLeft(Category) then
+  begin
+    FBank.Save;
+    MessageDlg(SRestartForCategoriesVibility);
+  end;
+end;
+
+procedure TWndMain.ActionCategoryMoveRightExecute(Sender: TObject);
+var
+  Category: TLauncherCategory;
+begin
+  Category := CurCategory;
+  if Assigned(Category) and FBank.MoveRight(Category)  then
+  begin
+    FBank.Save;
+    MessageDlg(SRestartForCategoriesVibility);
   end;
 end;
 
