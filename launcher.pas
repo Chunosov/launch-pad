@@ -5,14 +5,23 @@ unit Launcher;
 interface
 
 uses
-  SysUtils, FGL, OriXmlFile;
+  SysUtils, FGL, Graphics, OriXmlFile;
 
 type
-  TLauncher = class
-    abstract
+  TLauncherIcon = class abstract
+  public
+    procedure SaveXml(Xml: TOriXmlFileWriter); virtual; abstract;
+    procedure LoadXml(Xml: TOriXmlFileReader); virtual; abstract;
+    procedure GetBitmap(Bmp: TCustomBitmap); virtual; abstract;
+  end;
+  TLauncherIconType = class of TLauncherIcon;
+  TLauncherIconTypeList = specialize TFPGList<TLauncherIconType>;
+
+  TLauncher = class abstract
   protected
     FTitle: string;
     FHidden: boolean;
+    FIcon: TLauncherIcon;
     procedure SaveXmlInternal(Xml: TOriXmlFileWriter); virtual; abstract;
     procedure LoadXmlInternal(Xml: TOriXmlFileReader); virtual; abstract;
   public
@@ -21,8 +30,10 @@ type
     function Configure: boolean; virtual; abstract;
     procedure SaveXml(Xml: TOriXmlFileWriter);
     procedure LoadXml(Xml: TOriXmlFileReader);
+    procedure ClearIcon;
     property Title: string read FTitle write FTitle;
     property Hidden: boolean read FHidden write FHidden;
+    property Icon: TLauncherIcon read FIcon write FIcon;
     class function TypeTitle: string; virtual; abstract;
   end;
 
@@ -72,6 +83,7 @@ function GetLauncherTypeByName(const AName: string): TLauncherType;
 
 var
   LauncherTypes: TLauncherTypeList;
+  LauncherIconTypes: TLauncherIconTypeList;
 
 const
   DefBankFileName = 'LaunchPad.xml';
@@ -82,12 +94,14 @@ const
   TagCategory = 'Category';
   TagLaunchers = 'Launchers';
   TagLauncher = 'Launcher';
+  TagLauncherIcon = 'Icon';
   AttrBankVersion = 'Version';
   AttrCategoryTitle = 'Title';
   AttrCategoryHidden = 'Hidden';
   AttrLauncherTitle = 'Title';
   AttrLauncherType = 'Type';
   AttrLauncherHidden = 'Hidden';
+  AttrLauncherIconType = 'Type';
 
 implementation
 
@@ -98,6 +112,7 @@ resourcestring
   LoadErr_UnsupportedFileVersion = 'Unsupported verion of configuration file';
 
 {%region Helpers}
+// TODO: can be collapsed into single generic procedure?
 function GetLauncherTypeByName(const AName: string): TLauncherType;
 var
   I: integer;
@@ -113,6 +128,20 @@ begin
   Result := nil;
 end;
 
+function GetLauncherIconTypeByName(const AName: string): TLauncherIconType;
+var
+  I: integer;
+begin
+  for I := 0 to LauncherIconTypes.Count - 1 do
+  begin
+    if SameText(LauncherIconTypes[I].ClassName, AName) then
+    begin
+      Result := LauncherIconTypes[I];
+      Exit;
+    end;
+  end;
+  Result := nil;
+end;
 {%endregion}
 
 {%region TLauncher}
@@ -121,6 +150,15 @@ begin
 end;
 
 procedure TLauncher.SaveXml(Xml: TOriXmlFileWriter);
+
+  procedure SaveIcon;
+  begin
+    Xml.Open(TagLauncherIcon);
+    Xml.Attribute[AttrLauncherIconType] := FIcon.ClassName;
+    FIcon.SaveXml(Xml);
+    Xml.Close;
+  end;
+
 begin
   Xml.Open(TagLauncher);
   Xml.Attribute[AttrLauncherTitle] := FTitle;
@@ -128,16 +166,41 @@ begin
   if FHidden then
     Xml.BoolAttribute[AttrLauncherHidden] := FHidden;
   SaveXMLInternal(Xml);
+  if Assigned(FIcon) then SaveIcon;
   Xml.Close;
 end;
 
 procedure TLauncher.LoadXml(Xml: TOriXmlFileReader);
+
+  function LoadIcon: TLauncherIcon;
+  var
+    IconTypeName: string;
+    IconType: TLauncherIconType;
+  begin
+    IconTypeName := Xml.Attribute[AttrLauncherIconType];
+    IconType := GetLauncherIconTypeByName(IconTypeName);
+    if Assigned(IconType) then
+    begin
+      Result := IconType.Create;
+      Result.LoadXml(Xml);
+    end;
+  end;
+
 begin
   FTitle := Xml.Attribute[AttrLauncherTitle];
   FHidden := Xml.BoolAttribute[AttrLauncherHidden];
   LoadXmlInternal(Xml);
+  if Xml.TryOpen(TagLauncherIcon) then
+  begin
+    FIcon := LoadIcon;
+    Xml.Close;
+  end;
 end;
 
+procedure TLauncher.ClearIcon;
+begin
+  FreeAndNil(FIcon);
+end;
 {%endregion}
 
 {%region TLauncherCategory}
@@ -313,8 +376,10 @@ end;
 
 initialization
   LauncherTypes := TLauncherTypeList.Create;
+  LauncherIconTypes := TLauncherIconTypeList.Create;
 
 finalization
   LauncherTypes.Free;
+  LauncherIconTypes.Free;
 
 end.

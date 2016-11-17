@@ -48,8 +48,7 @@ procedure LaunchWithErrorHandler(ALauncher: TLauncher);
 implementation
 
 uses
-  SysUtils, Controls, Dialogs,
-  CommonData;
+  SysUtils, Controls, Dialogs;
 
 procedure LaunchWithErrorHandler(ALauncher: TLauncher);
 begin
@@ -82,7 +81,9 @@ end;
 procedure TLauncherView.Populate;
 begin
   Caption := FLauncher.Title;
-  CommonDat.ImagesBig.GetBitmap(1, Glyph);
+  if Assigned(FLauncher.Icon) then
+    FLauncher.Icon.GetBitmap(Glyph)
+  else Glyph.Clear;
 end;
 
 {%endregion}

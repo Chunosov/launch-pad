@@ -8,7 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, WinMain, Launcher, LauncherExe, WinLauncherExeProps,
-  CategoryView, CommonData, WinIconSelector, WinCategoryVisibility;
+  CategoryView, CommonData, WinIconSelector, WinCategoryVisibility, 
+launchericons;
 
 {$R *.res}
 

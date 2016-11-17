@@ -1,8 +1,9 @@
 object WndIconSelector: TWndIconSelector
   Left = 684
   Height = 432
-  Top = 334
+  Top = 371
   Width = 421
+  ActiveControl = ListBuiltinIcons
   BorderIcons = [biSystemMenu]
   Caption = 'Icon Selector'
   ClientHeight = 432
