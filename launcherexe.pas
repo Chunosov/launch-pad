@@ -46,7 +46,7 @@ uses
 resourcestring
   SLauncherExeTitle = 'Executable File Launcher';
   SLauncherBatTitle = 'Shell Commands Launcher';
-  SExecutableNotFound = 'Executable file or script not found:'#10#13'%s';
+  SLauncherFailed = 'Failed to execute file:'#10#13'%s:'#10#13#10#13'%s: %s';
 
 const
   ExtBat = '.bat';
@@ -87,16 +87,20 @@ var
   Exe: string;
 begin
   Exe := GetExecutablePath;
-  if (Exe <> '') and not FileExistsUTF8(Exe) then
-    raise Exception.CreateFmt(SExecutableNotFound, [Exe]);
+  // Do not check if file exists! It will fail for file without full path.
 
   Process := TProcessUTF8.Create(nil);
   try
-    Process.Executable := Exe;
-    Process.Parameters.Text := CmdLine;
-    if (CurDir <> '') and DirectoryExistsUTF8(CurDir) then
-      Process.CurrentDirectory := CurDir;
-    Process.Execute;
+    try
+      Process.Executable := Exe;
+      Process.Parameters.Text := CmdLine;
+      if (CurDir <> '') and DirectoryExistsUTF8(CurDir) then
+        Process.CurrentDirectory := CurDir;
+      Process.Execute;
+    except
+      on e: Exception do
+        raise Exception.CreateFmt(SLauncherFailed, [Exe, e.ClassName, e.Message]);
+    end;
   finally
     Process.Free;
   end;
