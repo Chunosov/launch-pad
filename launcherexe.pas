@@ -71,11 +71,9 @@ end;
 
 procedure TLauncherExe.SaveXMLInternal(Xml: TOriXmlFileWriter);
 begin
-  Xml.Text['FileName'] := FFileName;
-  Xml.Text['CmdLine'] := FCmdLine;
-  Xml.Text['CurDir'] := FCurDir;
-  Xml.Open('Options');
-  Xml.Close;
+  if FFileName <> '' then Xml.Text['FileName'] := FFileName;
+  if FCmdLine <> '' then Xml.Text['CmdLine'] := FCmdLine;
+  if FCurDir <> '' then Xml.Text['CurDir'] := FCurDir;
 end;
 
 function TLauncherExe.GetExecutablePath: string;
