@@ -9,3 +9,4 @@
 LaunchPad.xml
 *.xml
 icons/__*.*
+.bat/

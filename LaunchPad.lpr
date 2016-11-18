@@ -9,15 +9,15 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, WinMain, Launcher, LauncherExe, WinLauncherExeProps,
   CategoryView, CommonData, WinIconSelector, WinCategoryVisibility, 
-launchericons, IconPreset;
+launchericons, IconPreset, WinLauncherBatProps;
 
 {$R *.res}
 
 begin
   RequireDerivedFormResource := True;
   Application.Initialize;
-	Application.CreateForm(TCommonDat, CommonDat);
-	Application.CreateForm(TWndMain, WndMain);
+  Application.CreateForm(TCommonDat, CommonDat);
+  Application.CreateForm(TWndMain, WndMain);
   Application.Run;
 end.
 

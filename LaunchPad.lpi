@@ -33,15 +33,18 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="Orion"/>
+        <PackageName Value="SynEdit"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="Orion"/>
       </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
     </RequiredPackages>
-    <Units Count="12">
+    <Units Count="13">
       <Unit0>
         <Filename Value="LaunchPad.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -119,6 +122,13 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="IconPreset"/>
       </Unit11>
+      <Unit12>
+        <Filename Value="winlauncherbatprops.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="WndLauncherBatProps"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="WinLauncherBatProps"/>
+      </Unit12>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
