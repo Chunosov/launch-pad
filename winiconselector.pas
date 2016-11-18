@@ -7,25 +7,27 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ButtonPanel, ComCtrls,
-  Launcher, OriTabs;
+  Launcher, OriTabs, OriDialogs;
 
 type
 
   { TWndIconSelector }
 
-  TWndIconSelector = class(TForm)
+  TWndIconSelector = class(TOriDialog)
     ButtonPanel: TButtonPanel;
     IconTabs: TOriTabSet;
     ImagesPresetFileIcons: TImageList;
     ListBuiltinIcons: TListView;
     ListPresetFileIcons: TListView;
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormShow(Sender: TObject);
     procedure ListIconsDblClick(Sender: TObject);
   private
     FLauncher: TLauncher;
     procedure PresentIcon;
-    procedure ApplyIcon;
+  protected
+    procedure Populate; override;
+    procedure Collect; override;
+  public
+    constructor Create(ALauncher: TLauncher); reintroduce;
   end;
 
 function SelectIcon(ALauncher: TLauncher): boolean;
@@ -34,7 +36,6 @@ implementation
 
 uses
   StrUtils, Graphics,
-  OriUtils_Gui,
   LauncherIcons, IconPreset;
 
 {$R *.lfm}
@@ -42,22 +43,20 @@ uses
 resourcestring
   SIconNone = '(none)';
 
-var
-  SavedSize, SavedPos: longword;
-
 const
   TabBuiltinIcon = 0;
   TabPresetFileIcon = 1;
 
 function SelectIcon(ALauncher: TLauncher): boolean;
 begin
-  with TWndIconSelector.Create(Application.MainForm) do
-  begin
-    Caption := Format('%s - %s', [Caption, ALauncher.Title]);
-    FLauncher := ALauncher;
-    Result := ShowModal = mrOk;
-    if Result then ApplyIcon;
-  end;
+  Result := TWndIconSelector.Create(ALauncher).Exec;
+end;
+
+constructor TWndIconSelector.Create(ALauncher: TLauncher);
+begin
+  inherited Create;
+  FLauncher := ALauncher;
+  Caption := Format('%s - %s', [Caption, FLauncher.Title]);
 end;
 
 procedure TWndIconSelector.PresentIcon;
@@ -105,7 +104,7 @@ begin
   end;
 end;
 
-procedure TWndIconSelector.FormShow(Sender: TObject);
+procedure TWndIconSelector.Populate;
 
   procedure PopulateBuilinIcons;
   var
@@ -164,7 +163,6 @@ begin
   PopulateBuilinIcons;
   PopulatePresetFileIcons;
   PresentIcon;
-  RestoreFormSizePos(Self, SavedSize, SavedPos);
 end;
 
 procedure TWndIconSelector.ListIconsDblClick(Sender: TObject);
@@ -174,13 +172,7 @@ begin
   if Assigned(List) and Assigned(List.Selected) then ButtonPanel.OKButton.Click;
 end;
 
-procedure TWndIconSelector.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  CloseAction := caFree;
-  SaveFormSizePos(Self, SavedSize, SavedPos);
-end;
-
-procedure TWndIconSelector.ApplyIcon;
+procedure TWndIconSelector.Collect;
 
   function MakeBuiltinIcon: TBuiltinLauncherIcon;
   begin

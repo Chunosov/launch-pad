@@ -3,12 +3,11 @@ object WndIconSelector: TWndIconSelector
   Height = 432
   Top = 298
   Width = 421
+  ActiveControl = ListBuiltinIcons
   BorderIcons = [biSystemMenu]
   Caption = 'Icon Selector'
   ClientHeight = 432
   ClientWidth = 421
-  OnClose = FormClose
-  OnShow = FormShow
   PopupMode = pmAuto
   Position = poScreenCenter
   LCLVersion = '1.6.2.0'
@@ -57,22 +56,6 @@ object WndIconSelector: TWndIconSelector
     Align = alClient
     AutoSize = True
     Color = clForm
-    object ListBuiltinIcons: TListView
-      Left = 6
-      Height = 347
-      Top = 35
-      Width = 409
-      Align = alClient
-      BorderSpacing.Around = 3
-      Columns = <>
-      IconOptions.AutoArrange = True
-      LargeImages = CommonDat.ImagesBig
-      ReadOnly = True
-      TabOrder = 0
-      Visible = False
-      ViewStyle = vsIcon
-      OnDblClick = ListIconsDblClick
-    end
     object ListPresetFileIcons: TListView
       Left = 6
       Height = 347
@@ -85,6 +68,22 @@ object WndIconSelector: TWndIconSelector
       LargeImages = ImagesPresetFileIcons
       ReadOnly = True
       TabOrder = 1
+      Visible = False
+      ViewStyle = vsIcon
+      OnDblClick = ListIconsDblClick
+    end
+    object ListBuiltinIcons: TListView
+      Left = 6
+      Height = 347
+      Top = 35
+      Width = 409
+      Align = alClient
+      BorderSpacing.Around = 3
+      Columns = <>
+      IconOptions.AutoArrange = True
+      LargeImages = CommonDat.ImagesBig
+      ReadOnly = True
+      TabOrder = 0
       Visible = False
       ViewStyle = vsIcon
       OnDblClick = ListIconsDblClick

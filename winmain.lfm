@@ -1,7 +1,7 @@
 object WndMain: TWndMain
-  Left = 816
+  Left = 970
   Height = 478
-  Top = 460
+  Top = 398
   Width = 382
   Caption = 'Launch Pad'
   ClientHeight = 478
@@ -37,14 +37,11 @@ object WndMain: TWndMain
     object MenuItem9: TMenuItem
       Caption = '-'
     end
-    object MenuItem6: TMenuItem
-      Caption = 'Edit'
-      object MenuItem14: TMenuItem
-        Action = ActionLauncherConfig
-      end
-      object MenuItem15: TMenuItem
-        Action = ActionLauncherIcon
-      end
+    object MenuItem14: TMenuItem
+      Action = ActionLauncherConfig
+    end
+    object MenuItem15: TMenuItem
+      Action = ActionLauncherIcon
     end
     object MenuItem7: TMenuItem
       Action = ActionLauncherDelete
@@ -88,7 +85,7 @@ object WndMain: TWndMain
     end
     object ActionLauncherConfig: TAction
       Category = 'Launcher'
-      Caption = 'Action...'
+      Caption = 'Edit Action...'
       OnExecute = ActionLauncherConfigExecute
     end
     object ActionLauncherDelete: TAction
@@ -113,7 +110,7 @@ object WndMain: TWndMain
     end
     object ActionLauncherIcon: TAction
       Category = 'Launcher'
-      Caption = 'Icon...'
+      Caption = 'Select Icon...'
       OnExecute = ActionLauncherIconExecute
     end
     object ActionCategoryVisibility: TAction
@@ -140,6 +137,9 @@ object WndMain: TWndMain
     end
     object MenuItem3: TMenuItem
       Action = ActionCategoryDelete
+    end
+    object MenuItem6: TMenuItem
+      Caption = '-'
     end
     object MenuItem18: TMenuItem
       Action = ActionCategoryMoveLeft
