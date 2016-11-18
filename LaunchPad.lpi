@@ -41,7 +41,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="11">
+    <Units Count="12">
       <Unit0>
         <Filename Value="LaunchPad.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -114,6 +114,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="LauncherIcons"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="iconpreset.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="IconPreset"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

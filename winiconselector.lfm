@@ -1,9 +1,8 @@
 object WndIconSelector: TWndIconSelector
-  Left = 684
+  Left = 856
   Height = 432
-  Top = 371
+  Top = 298
   Width = 421
-  ActiveControl = ListBuiltinIcons
   BorderIcons = [biSystemMenu]
   Caption = 'Icon Selector'
   ClientHeight = 432
@@ -35,7 +34,7 @@ object WndIconSelector: TWndIconSelector
     ShowButtons = [pbOK, pbCancel]
     ShowBevel = False
   end
-  object CategoryTabs: TOriTabSet
+  object IconTabs: TOriTabSet
     Left = 0
     Height = 388
     Top = 0
@@ -43,12 +42,16 @@ object WndIconSelector: TWndIconSelector
     Tabs = <    
       item
         Caption = 'Built-in Icon'
+        Control = ListBuiltinIcons
+      end    
+      item
+        Caption = 'Preset File Icon'
+        Control = ListPresetFileIcons
       end>
     ActiveTabIndex = 0
     ColorTabsBorder = clBtnShadow
     ColorActiveTab = clForm
     ColorHoverTab = clForm
-    Options = [tsoUseButtons, tsoUseMargins, tsoOwnControls]
     TabMarginV = 4
     TabMarginH = 6
     Align = alClient
@@ -62,11 +65,35 @@ object WndIconSelector: TWndIconSelector
       Align = alClient
       BorderSpacing.Around = 3
       Columns = <>
-      IconOptions.Arrangement = iaLeft
       IconOptions.AutoArrange = True
+      LargeImages = CommonDat.ImagesBig
       ReadOnly = True
       TabOrder = 0
+      Visible = False
       ViewStyle = vsIcon
+      OnDblClick = ListIconsDblClick
     end
+    object ListPresetFileIcons: TListView
+      Left = 6
+      Height = 347
+      Top = 35
+      Width = 409
+      Align = alClient
+      BorderSpacing.Around = 3
+      Columns = <>
+      IconOptions.AutoArrange = True
+      LargeImages = ImagesPresetFileIcons
+      ReadOnly = True
+      TabOrder = 1
+      Visible = False
+      ViewStyle = vsIcon
+      OnDblClick = ListIconsDblClick
+    end
+  end
+  object ImagesPresetFileIcons: TImageList
+    Height = 24
+    Width = 24
+    left = 161
+    top = 216
   end
 end

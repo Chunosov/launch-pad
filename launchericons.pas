@@ -18,10 +18,20 @@ type
     property Index: Integer read FIndex write FIndex;
   end;
 
+  TPresetFileLauncherIcon = class(TLauncherIcon)
+  private
+    FFileName: String;
+  public
+    procedure SaveXml(Xml: TOriXmlFileWriter); override;
+    procedure LoadXml(Xml: TOriXmlFileReader); override;
+    procedure GetBitmap(Bmp: TCustomBitmap); override;
+    property FileName: String read FFileName write FFileName;
+  end;
+
 implementation
 
 uses
-  CommonData;
+  CommonData, IconPreset;
 
 {%region TBuiltinLauncherIcon}
 procedure TBuiltinLauncherIcon.SaveXml(Xml: TOriXmlFileWriter);
@@ -43,8 +53,34 @@ begin
 end;
 {%endregion}
 
+{%region TPresetFileLauncherIcon}
+procedure TPresetFileLauncherIcon.SaveXml(Xml: TOriXmlFileWriter);
+begin
+  Xml.Text['FileName'] := FFileName;
+end;
+
+procedure TPresetFileLauncherIcon.LoadXml(Xml: TOriXmlFileReader);
+begin
+  FFileName := Xml.Text['FileName'];
+end;
+
+procedure TPresetFileLauncherIcon.GetBitmap(Bmp: TCustomBitmap);
+var
+  Picture: TPicture;
+begin
+  Picture := IconPreset.LoadIcon(FFileName);
+  if Assigned(Picture) then
+  try
+    Bmp.Assign(Picture.Bitmap);
+  finally
+    Picture.Free;
+  end;
+end;
+{%endregion}
+
 initialization
   LauncherIconTypes.Add(TBuiltinLauncherIcon);
+  LauncherIconTypes.Add(TPresetFileLauncherIcon);
 
 end.
 

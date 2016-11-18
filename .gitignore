@@ -8,3 +8,4 @@
 *.fpcunit.ini
 LaunchPad.xml
 *.xml
+icons/__*.*
