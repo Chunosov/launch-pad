@@ -591,14 +591,6 @@ object WndLauncherBatProps: TWndLauncherBatProps
     TabOrder = 2
     ShowButtons = [pbOK, pbCancel]
     ShowBevel = False
-    object FlagDiscardStderr: TCheckBox
-      Left = 0
-      Height = 19
-      Top = 0
-      Width = 92
-      Caption = 'Discard stderr'
-      TabOrder = 4
-    end
   end
   object TextCurDir: TDirectoryEdit
     Left = 6

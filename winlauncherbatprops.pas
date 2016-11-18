@@ -14,7 +14,6 @@ type
 
   TWndLauncherBatProps = class(TOriDialog)
     ButtonPanel: TButtonPanel;
-    FlagDiscardStderr: TCheckBox;
     TextCurDir: TDirectoryEdit;
     FontDialog: TFontDialog;
     Label3: TLabel;
@@ -126,7 +125,6 @@ procedure TWndLauncherBatProps.Populate;
 begin
   TextTitle.Text := FLauncher.Title;
   TextCurDir.Text := FLauncher.CurDir;
-  FlagDiscardStderr.Checked := not FLauncher.UseStdErr;
   LoadScript(FLauncher.GetExecutablePath);
 end;
 
@@ -144,7 +142,6 @@ procedure TWndLauncherBatProps.Collect;
 begin
   FLauncher.Title := Trim(TextTitle.Text);
   FLauncher.CurDir := Trim(TextCurDir.Text);
-  FLauncher.UseStdErr := not FlagDiscardStderr.Checked;
   SaveScript(FLauncher.GetExecutablePath);
 end;
 

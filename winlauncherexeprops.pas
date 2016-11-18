@@ -15,7 +15,6 @@ type
     ButtonCurDir: TButton;
     ButtonPanel: TButtonPanel;
     Label3: TLabel;
-    OptionsGroup: TCheckGroup;
     Label6: TLabel;
     OpenDialog1: TOpenDialog;
     PanelCurDir: TPanel;
@@ -65,7 +64,6 @@ begin
   TextFileName.Text := FLauncher.FileName;
   TextCurDir.Text := FLauncher.CurDir;
   MemoCmdLine.Lines.Text := FLauncher.CmdLine;
-  OptionsGroup.Checked[0] := not FLauncher.UseStdErr;
 end;
 
 procedure TWndLauncherExeProps.Collect;
@@ -74,7 +72,6 @@ begin
   FLauncher.FileName := Trim(TextFileName.Text);
   FLauncher.CurDir := Trim(TextCurDir.Text);
   FLauncher.CmdLine := Trim(MemoCmdLine.Lines.Text);
-  FLauncher.UseStdErr := not OptionsGroup.Checked[0];
 end;
 
 procedure TWndLauncherExeProps.ButtonFileNameClick(Sender: TObject);

@@ -13,7 +13,6 @@ type
     FFileName: string;
     FCmdLine: string;
     FCurDir: string;
-    FUseStderr: boolean;
   protected
     function GetExecutablePath: string; virtual;
     procedure SaveXMLInternal(Xml: TOriXmlFileWriter); override;
@@ -22,7 +21,6 @@ type
     property FileName: string read FFileName write FFileName;
     property CmdLine: string read FCmdLine write FCmdLine;
     property CurDir: string read FCurDir write FCurDir;
-    property UseStdErr: boolean read FUseStderr write FUseStderr;
     procedure Launch; override;
     function Configure: boolean; override;
     class function TypeTitle: string; override;
@@ -69,11 +67,6 @@ begin
   FFileName := Xml.Text['FileName'];
   FCmdLine := Xml.Text['CmdLine'];
   FCurDir := Xml.Text['CurDir'];
-  if Xml.TryOpen('Options') then
-  begin
-    FUseStderr := not Xml.BoolAttribute['DontShowStderr'];
-    Xml.Close;
-  end;
 end;
 
 procedure TLauncherExe.SaveXMLInternal(Xml: TOriXmlFileWriter);
@@ -82,8 +75,6 @@ begin
   Xml.Text['CmdLine'] := FCmdLine;
   Xml.Text['CurDir'] := FCurDir;
   Xml.Open('Options');
-  if not FUseStderr then
-    Xml.BoolAttribute['DontShowStderr'] := True;
   Xml.Close;
 end;
 
@@ -95,21 +86,6 @@ end;
 procedure TLauncherExe.Launch;
 var
   Process: TProcessUTF8;
-
-  function GetStderr: string;
-  var
-    Stderr: TStrings;
-  begin
-    Stderr := TStringList.Create;
-    try
-      Stderr.LoadFromStream(Process.Stderr);
-      Result := Trim(Stderr.Text);
-    finally
-      Stderr.Free;
-    end;
-  end;
-
-var
   Error, Exe: string;
 begin
   Exe := GetExecutablePath;
@@ -120,17 +96,9 @@ begin
   try
     Process.Executable := Exe;
     Process.Parameters.Text := CmdLine;
-    if UseStderr then
-      Process.Options := [poUsePipes];
     if (CurDir <> '') and DirectoryExistsUTF8(CurDir) then
       Process.CurrentDirectory := CurDir;
     Process.Execute;
-    if UseStderr then
-    begin
-      Error := GetStderr;
-      if Error <> '' then
-        raise ELauncher.Create(Error);
-    end;
   finally
     Process.Free;
   end;

@@ -34,13 +34,13 @@ object WndLauncherExeProps: TWndLauncherExeProps
     CloseButton.DefaultCaption = True
     CancelButton.Name = 'CancelButton'
     CancelButton.DefaultCaption = True
-    TabOrder = 5
+    TabOrder = 4
     ShowButtons = [pbOK, pbCancel]
     ShowBevel = False
   end
   object MemoCmdLine: TMemo
     Left = 6
-    Height = 60
+    Height = 119
     Top = 187
     Width = 488
     Align = alClient
@@ -48,15 +48,9 @@ object WndLauncherExeProps: TWndLauncherExeProps
     BorderSpacing.Top = 3
     BorderSpacing.Right = 6
     BorderSpacing.Bottom = 6
-    Font.CharSet = RUSSIAN_CHARSET
-    Font.Height = -13
-    Font.Name = 'Monospace'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Lines.Strings = (
       ''
     )
-    ParentFont = False
     ScrollBars = ssAutoVertical
     TabOrder = 3
     WantReturns = False
@@ -177,33 +171,6 @@ object WndLauncherExeProps: TWndLauncherExeProps
       ShowHint = True
       TabOrder = 1
     end
-  end
-  object OptionsGroup: TCheckGroup
-    Left = 6
-    Height = 53
-    Top = 253
-    Width = 488
-    Align = alBottom
-    AutoFill = True
-    BorderSpacing.Around = 6
-    Caption = 'Options'
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.TopBottomSpacing = 6
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 33
-    ClientWidth = 484
-    Items.Strings = (
-      'Do not show stderr'
-    )
-    TabOrder = 4
-    Data = {
-      0100000002
-    }
   end
   object Label3: TLabel
     Left = 6
