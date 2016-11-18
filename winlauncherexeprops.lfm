@@ -1,7 +1,7 @@
 object WndLauncherExeProps: TWndLauncherExeProps
-  Left = 694
+  Left = 883
   Height = 350
-  Top = 379
+  Top = 502
   Width = 500
   HorzScrollBar.Page = 527
   HorzScrollBar.Range = 245
@@ -40,8 +40,8 @@ object WndLauncherExeProps: TWndLauncherExeProps
   end
   object MemoCmdLine: TMemo
     Left = 6
-    Height = 119
-    Top = 187
+    Height = 123
+    Top = 183
     Width = 488
     Align = alClient
     BorderSpacing.Left = 6
@@ -68,49 +68,10 @@ object WndLauncherExeProps: TWndLauncherExeProps
     Caption = 'File name'
     ParentColor = False
   end
-  object PanelFileName: TPanel
-    Left = 6
-    Height = 25
-    Top = 77
-    Width = 488
-    Align = alTop
-    AutoSize = True
-    BorderSpacing.Left = 6
-    BorderSpacing.Top = 3
-    BorderSpacing.Right = 6
-    BorderSpacing.Bottom = 6
-    BevelOuter = bvNone
-    ClientHeight = 25
-    ClientWidth = 488
-    TabOrder = 1
-    object TextFileName: TEdit
-      Left = 0
-      Height = 25
-      Top = 0
-      Width = 450
-      Align = alClient
-      BorderSpacing.Right = 3
-      TabOrder = 0
-    end
-    object ButtonFileName: TButton
-      Left = 453
-      Height = 25
-      Hint = 'Select a file'
-      Top = 0
-      Width = 35
-      Align = alRight
-      AutoSize = True
-      Caption = '...'
-      OnClick = ButtonFileNameClick
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-    end
-  end
   object Label5: TLabel
     Left = 6
     Height = 15
-    Top = 169
+    Top = 165
     Width = 488
     Align = alTop
     BorderSpacing.Left = 6
@@ -123,7 +84,7 @@ object WndLauncherExeProps: TWndLauncherExeProps
   object Label6: TLabel
     Left = 6
     Height = 15
-    Top = 114
+    Top = 112
     Width = 488
     Align = alTop
     BorderSpacing.Left = 6
@@ -132,45 +93,6 @@ object WndLauncherExeProps: TWndLauncherExeProps
     BorderSpacing.Bottom = 3
     Caption = 'Current directory'
     ParentColor = False
-  end
-  object PanelCurDir: TPanel
-    Left = 6
-    Height = 25
-    Top = 132
-    Width = 488
-    Align = alTop
-    AutoSize = True
-    BorderSpacing.Left = 6
-    BorderSpacing.Top = 3
-    BorderSpacing.Right = 6
-    BorderSpacing.Bottom = 6
-    BevelOuter = bvNone
-    ClientHeight = 25
-    ClientWidth = 488
-    TabOrder = 2
-    object TextCurDir: TEdit
-      Left = 0
-      Height = 25
-      Top = 0
-      Width = 450
-      Align = alClient
-      BorderSpacing.Right = 3
-      TabOrder = 0
-    end
-    object ButtonCurDir: TButton
-      Left = 453
-      Height = 25
-      Hint = 'Select a file'
-      Top = 0
-      Width = 35
-      Align = alRight
-      AutoSize = True
-      Caption = '...'
-      OnClick = ButtonCurDirClick
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-    end
   end
   object Label3: TLabel
     Left = 6
@@ -197,9 +119,40 @@ object WndLauncherExeProps: TWndLauncherExeProps
     BorderSpacing.Bottom = 6
     TabOrder = 0
   end
-  object SelectDirectoryDialog1: TSelectDirectoryDialog
-    left = 248
-    top = 80
+  object TextCurDir: TDirectoryEdit
+    Left = 6
+    Height = 23
+    Top = 130
+    Width = 488
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    MaxLength = 0
+    TabOrder = 2
+  end
+  object TextFileName: TFileNameEdit
+    Left = 6
+    Height = 23
+    Top = 77
+    Width = 488
+    DialogTitle = 'Select Executable File'
+    FilterIndex = 0
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 6
+    MaxLength = 0
+    TabOrder = 1
+    OnButtonClick = TextFileNameButtonClick
   end
   object OpenDialog1: TOpenDialog
     Title = 'Select Executable File'

@@ -86,7 +86,7 @@ end;
 procedure TLauncherExe.Launch;
 var
   Process: TProcessUTF8;
-  Error, Exe: string;
+  Exe: string;
 begin
   Exe := GetExecutablePath;
   if (Exe <> '') and not FileExistsUTF8(Exe) then
