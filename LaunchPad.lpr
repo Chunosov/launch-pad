@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, WinMain, Launcher, LauncherExe, WinLauncherExeProps,
   CategoryView, CommonData, WinIconSelector, WinCategoryVisibility, 
-launchericons, IconPreset, WinLauncherBatProps;
+launchericons, IconPreset, WinLauncherBatProps, pascalscript, WinScriptEditor;
 
 {$R *.res}
 
