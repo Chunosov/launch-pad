@@ -3,7 +3,7 @@ object WndScriptEditor: TWndScriptEditor
   Height = 519
   Top = 360
   Width = 633
-  ActiveControl = PanelOptions
+  ActiveControl = TextTitle
   Caption = 'Script Launcher Properties'
   ClientHeight = 519
   ClientWidth = 633
@@ -627,7 +627,7 @@ object WndScriptEditor: TWndScriptEditor
       object TextRunner: TFileNameEdit
         Left = 6
         Height = 23
-        Top = 134
+        Top = 130
         Width = 422
         DialogTitle = 'Select Executable File'
         FilterIndex = 0
@@ -640,25 +640,25 @@ object WndScriptEditor: TWndScriptEditor
         BorderSpacing.Right = 6
         BorderSpacing.Bottom = 6
         MaxLength = 0
-        TabOrder = 3
+        TabOrder = 2
       end
       object Label5: TLabel
         Left = 6
         Height = 15
-        Top = 169
+        Top = 165
         Width = 422
         Align = alTop
         BorderSpacing.Left = 6
         BorderSpacing.Top = 12
         BorderSpacing.Right = 6
         BorderSpacing.Bottom = 3
-        Caption = 'Additional runner parameters'
+        Caption = 'Runner arguments (one per line)'
         ParentColor = False
       end
-      object MemoCmdLine: TMemo
+      object MemoRunnerArgs: TMemo
         Left = 6
-        Height = 73
-        Top = 187
+        Height = 77
+        Top = 183
         Width = 422
         Align = alClient
         BorderSpacing.Left = 6
@@ -669,12 +669,11 @@ object WndScriptEditor: TWndScriptEditor
           ''
         )
         ScrollBars = ssAutoVertical
-        TabOrder = 4
-        WantReturns = False
+        TabOrder = 3
       end
-      object FlagRunner: TCheckBox
+      object Label1: TLabel
         Left = 6
-        Height = 19
+        Height = 15
         Top = 112
         Width = 422
         Align = alTop
@@ -682,8 +681,8 @@ object WndScriptEditor: TWndScriptEditor
         BorderSpacing.Top = 12
         BorderSpacing.Right = 6
         BorderSpacing.Bottom = 3
-        Caption = 'Specify script runner'
-        TabOrder = 2
+        Caption = 'Script runner'
+        ParentColor = False
       end
     end
   end

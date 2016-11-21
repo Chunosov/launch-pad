@@ -7,9 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, WinMain, Launcher, LauncherExe, WinLauncherExeProps,
-  CategoryView, CommonData, WinIconSelector, WinCategoryVisibility, 
-launchericons, IconPreset, WinLauncherBatProps, pascalscript, WinScriptEditor;
+  Forms, WinMain, Launcher, LauncherExe, WinLauncherExeProps, CategoryView,
+  CommonData, WinIconSelector, WinCategoryVisibility, launchericons, IconPreset,
+  WinLauncherBatProps, pascalscript, WinScriptEditor, LauncherScript;
 
 {$R *.res}
 

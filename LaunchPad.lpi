@@ -47,7 +47,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="15">
       <Unit0>
         <Filename Value="LaunchPad.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -141,6 +141,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="WinScriptEditor"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="launcherscript.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LauncherScript"/>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

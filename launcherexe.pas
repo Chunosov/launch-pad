@@ -5,6 +5,7 @@ unit LauncherExe;
 interface
 
 uses
+  SysUtils,
   OriXmlFile, Launcher;
 
 type
@@ -36,10 +37,13 @@ type
     class function TypeTitle: string; override;
   end;
 
+function FormatError(Error: Exception): string;
+
 implementation
 
 uses
-  SysUtils, Classes, Dialogs, Process, UTF8Process, LazFileUtils,
+  Classes, Dialogs, Process, UTF8Process, LazFileUtils,  LazUTF8,
+  {$ifdef WINDOWS} Windows, {$endif}
   OriUtils,
   WinLauncherExeProps, WinLauncherBatProps;
 
@@ -50,6 +54,31 @@ resourcestring
 
 const
   ExtBat = '.bat';
+
+{%region Helpers}
+{$ifdef WINDOWS}
+function FormatError(Error: Exception): string;
+var
+  Pos, ErrorCode, Size: Integer;
+  Buf: array[0..2047] of WideChar;
+begin
+  if not (Error is EProcess) then
+    exit(Error.ClassName + ': ' + Error.Message);
+
+  Pos := CharPos(Error.Message, ':');
+  // TProcessUTF8.Execute raises EProcess with message: 'Failed to execute {CommandLine} : {GetLastError}'
+  if (Pos < 1) or not TryStrToInt(Trim(Copy(Error.Message, Pos+1, MaxInt)), ErrorCode) then exit(Error.Message);
+  Size := FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM or FORMAT_MESSAGE_IGNORE_INSERTS,
+    nil, ErrorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), Buf, 2048, nil);
+  Result := UTF16ToUTF8(Buf, Size);
+end;
+{$else}
+function FormatError(Error: EProcess): string;
+begin
+  Result := Error.Message;
+end;
+{$endif}
+{%endregion}
 
 {%region TLauncherExe}
 class function TLauncherExe.TypeTitle: string;
